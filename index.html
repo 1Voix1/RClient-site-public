@@ -59,6 +59,12 @@
         .main-bg-overlay {
             background: radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.1), transparent 70%);
         }
+        #loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
@@ -292,6 +298,58 @@
             ru: { 'hero.title': 'RClient для DDNet', 'hero.subtitle': 'Ощутите новый уровень игры в DDRaceNetwork. Основан на Tater Client с лучшими функциями из Pulse и Entity клиентов.', 'hero.button': 'Скачать', 'about.tater.title': 'Основа: Tater Client', 'about.tater.description': 'RClient построен на базе Tater Client, используя его оптимизированную производительность как фундамент.', 'about.pulse.title': 'Вдохновение: Pulse Client', 'about.pulse.description': 'Мы взяли и улучшили самые полезные функции из Pulse, такие как кастомизация лазеров и меню в табе.', 'about.entity.title': 'Дополнение: Entity Client', 'about.entity.description': 'Интегрировали полезные QoL-функции из Entity, чтобы сделать ваш игровой опыт еще комфортнее.', 'feature_list.title': 'Что внутри клиента?', 'feature_list.feature1.title': 'Поиск/Копирование скинов', 'feature_list.feature1.description': 'Удобный поиск и копирование скинов прямо в игре. Найдите любой скин по нику игрока.', 'feature_list.feature2.title': 'Улучшенные лазеры', 'feature_list.feature2.description': 'Настраивайте цвет и толщину лазеров для лучшей видимости, как в Pulse Client.', 'feature_list.feature3.title': 'Автоматическая смена клана', 'feature_list.feature3.description': 'Клиент может автоматически изменять клан в зависимости от сервера, на котором вы играете.', 'feature_list.feature4.title': 'Игровое меню в табе', 'feature_list.feature4.description': 'Взаимодействуйте с игроками прямо через таблицу лидеров, используя удобное контекстное меню.', 'installation.title': 'Простая установка', 'installation.step1.title': 'Скачать клиент', 'installation.step1.description': 'Загрузите последнюю версию для вашей операционной системы.', 'installation.step2.title': 'Заменить файлы', 'installation.step2.description': 'Замените исполняемый файл в папке с официальным клиентом DDNet.', 'installation.step3.title': 'Запустить игру', 'installation.step3.description': 'Запускайте игру и наслаждайтесь новыми возможностями!', 'download.title': 'Скачать RClient', 'download.subtitle': 'Выберите вашу платформу и начните играть уже сегодня.', 'download.loading': 'Загрузка версий...', 'download.error.title': 'Ошибка загрузки', 'download.error.message': 'Не удалось получить файлы. Пожалуйста, перейдите на GitHub для скачивания вручную.', 'download.windows': 'Windows', 'download.linux': 'Linux', 'download.macos': 'macOS', 'download.android': 'Android', 'footer.description': 'Создано для сообщества DDNet. Все права защищены.', 'screenshots.title': 'Галерея', 'download.history': 'История версий на GitHub', 'footer.name': '© 2024 RClient' }
         };
 
+        const loadReleases = async () => {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const downloadButtons = document.getElementById('download-buttons');
+            const downloadError = document.getElementById('download-error');
+            const platformButtons = document.getElementById('platform-buttons');
+
+            try {
+                loadingIndicator.style.display = 'flex';
+                downloadButtons.style.display = 'none';
+                downloadError.style.display = 'none';
+                platformButtons.innerHTML = '';
+
+                const response = await fetch('https://api.github.com/repos/1Voix1/RushieClient-ddnet-public/releases/latest');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                const release = await response.json();
+                const currentLang = document.documentElement.lang || 'ru';
+                const platformAssets = {};
+
+                for (const asset of release.assets) {
+                    const platform = detectPlatform(asset.name);
+                    if (platform) {
+                        if (!platformAssets[platform]) {
+                            platformAssets[platform] = asset;
+                        }
+                    }
+                }
+
+                let buttonsHtml = '';
+                const sortedPlatforms = ['windows', 'linux', 'macos', 'android'];
+
+                sortedPlatforms.forEach(platform => {
+                    if(platformAssets[platform]) {
+                        buttonsHtml += createPlatformButton(platform, platformAssets[platform], currentLang);
+                    }
+                });
+
+                if (buttonsHtml) {
+                    platformButtons.innerHTML = buttonsHtml;
+                    downloadButtons.style.display = 'block';
+                } else {
+                    throw new Error('No supported platforms found');
+                }
+            } catch (error) {
+                console.error('Error loading releases:', error);
+                downloadError.style.display = 'block';
+            } finally {
+                loadingIndicator.style.display = 'none';
+                if (typeof AOS !== 'undefined') AOS.refresh();
+            }
+        }
+
         const changeLanguage = (lang) => {
             document.documentElement.lang = lang;
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -314,7 +372,8 @@
 
             localStorage.setItem('preferred-language', lang);
 
-            if (document.getElementById('platform-buttons').innerHTML.trim()) {
+            // Заменим вызов loadReleases на проверку и вызов
+            if (typeof loadReleases === 'function') {
                 loadReleases();
             }
         };
@@ -357,60 +416,6 @@
                     <div class="text-xl font-bold">${platformName}</div>
                     <div class="text-sm text-slate-400">${formatFileSize(asset.size)}</div>
                 </a>`;
-        }
-
-        const loadReleases = async () => {
-            const loadingIndicator = document.getElementById('loading-indicator');
-            const downloadButtons = document.getElementById('download-buttons');
-            const downloadError = document.getElementById('download-error');
-            const platformButtons = document.getElementById('platform-buttons');
-
-            try {
-                loadingIndicator.style.display = 'block';
-                downloadButtons.style.display = 'none';
-                downloadError.style.display = 'none';
-                platformButtons.innerHTML = ''; // Очищаем кнопки перед загрузкой
-
-                // Примечание: Запросы к GitHub API могут блокироваться браузером при открытии файла локально (file://).
-                // Для корректной работы сайт должен быть размещен на веб-сервере.
-                const response = await fetch('https://api.github.com/repos/1Voix1/RushieClient-ddnet-public/releases/latest');
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-                const release = await response.json();
-                const currentLang = document.documentElement.lang || 'ru';
-                const platformAssets = {};
-
-                for (const asset of release.assets) {
-                    const platform = detectPlatform(asset.name);
-                    if (platform) {
-                        if (!platformAssets[platform]) { // Берем только первый найденный файл для платформы
-                            platformAssets[platform] = asset;
-                        }
-                    }
-                }
-
-                let buttonsHtml = '';
-                const sortedPlatforms = ['windows', 'linux', 'macos', 'android'];
-
-                sortedPlatforms.forEach(platform => {
-                    if(platformAssets[platform]) {
-                        buttonsHtml += createPlatformButton(platform, platformAssets[platform], currentLang);
-                    }
-                });
-
-                if (buttonsHtml) {
-                    platformButtons.innerHTML = buttonsHtml;
-                    downloadButtons.style.display = 'block';
-                } else {
-                    throw new Error('No supported platforms found in the latest release.');
-                }
-            } catch (error) {
-                console.error('Error loading releases:', error);
-                downloadError.style.display = 'block';
-            } finally {
-                loadingIndicator.style.display = 'none';
-                AOS.refresh();
-            }
         }
 
         loadReleases();
