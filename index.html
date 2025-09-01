@@ -23,6 +23,8 @@
     <meta property="og:image:height" content="1250">
 
     <!-- Multilang -->
+    <link rel="alternate" hreflang="ru" href="https://rushie-client.ru/ru/" />
+    <link rel="alternate" hreflang="en" href="https://rushie-client.ru/en/" />
     <link rel="alternate" hreflang="x-default" href="https://rushie-client.ru/" />
 
     <!-- Favicon -->
@@ -885,6 +887,45 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadReleases();
         });
+
+        // Определяем язык из URL
+        function getLangFromUrl() {
+            const path = window.location.pathname.split('/')[1]; // берем первую часть после домена
+            if (['en', 'ru'].includes(path)) {
+                return path;
+            }
+            return 'en'; // язык по умолчанию
+        }
+
+        // Устанавливаем язык при загрузке
+        const urlLang = getLangFromUrl();
+        changeLanguage(urlLang);
+
+        // Обновляем URL при переключении языка
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Обновляем активные кнопки
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
+
+            // Обновляем URL без перезагрузки
+            const newUrl = `/${lang}${window.location.pathname.replace(/^\/(en|ru)/, '')}${window.location.search}${window.location.hash}`;
+            window.history.replaceState({}, '', newUrl);
+
+            // Перезагрузить кнопки загрузки
+            const platformButtons = document.getElementById('platform-buttons');
+            if (platformButtons && platformButtons.innerHTML.trim() !== '') {
+                loadReleases();
+            }
+        }
+
     </script>
 </body>
 </html>
