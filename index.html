@@ -888,14 +888,16 @@
             loadReleases();
         });
 
-        // Определяем язык из URL
+        // Определяем язык из URL (работает и с /ru и с /ru/)
         function getLangFromUrl() {
-            const path = window.location.pathname.split('/')[1]; // берем первую часть после домена
-            if (['en', 'ru'].includes(path)) {
-                return path;
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const lang = segments[0]; // первый непустой сегмент
+            if (['en', 'ru'].includes(lang)) {
+                return lang;
             }
             return 'en'; // язык по умолчанию
         }
+
 
         // Устанавливаем язык при загрузке
         const urlLang = getLangFromUrl();
