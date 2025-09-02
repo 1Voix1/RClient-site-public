@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Title и Description -->
+    <!-- Title and Description -->
     <title>Rushie - DDNet Client</title>
     <meta name="description" content="RClient — Improved DDRaceNetwork client with additional features, based on Tater Client and Pulse Client.">
-    <meta name="keywords" content="RClient, Rushie Client, Rushie, DDnet, Client, DDrace, Tater Client, Pulse Client, мод, клиент, ddnet">
+    <meta name="keywords" content="RClient, Rushie Client, Rushie, DDnet, Client, DDrace, Tater Client, Pulse Client, mod, client, ddnet">
 
-    <!-- SEO и индексация -->
+    <!-- SEO and Indexing -->
     <link rel="canonical" href="https://rushie-client.ru/">
 
-    <!-- Open Graph для соцсетей -->
+    <!-- Open Graph for Social Media -->
     <meta property="og:title" content="Rushie - DDrace Client">
     <meta property="og:description" content="Improved DDRaceNetwork client with additional features, based on Tater Client and Pulse Client.">
     <meta property="og:type" content="website">
@@ -41,7 +41,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Пользовательские стили для улучшения дизайна */
+        /* Custom styles for improved design */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #020617; /* slate-950 */
@@ -60,10 +60,11 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(56, 189, 248, 0.1); /* sky-400 with opacity */
             border-radius: 1.5rem; /* 24px */
+            transition: all 0.3s ease-in-out;
         }
-        .modal-backdrop-custom {
-            background-color: rgba(2, 6, 23, 0.8); /* slate-950 with opacity */
-            backdrop-filter: blur(8px);
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-8px);
         }
         /* Custom background pattern */
         .main-bg {
@@ -83,26 +84,26 @@
 </head>
 <body class="overflow-x-hidden antialiased">
 
-<!-- Переключатель языка -->
+<!-- Language Switcher -->
 <div class="fixed top-4 right-4 z-50 flex items-center gap-1 p-1 rounded-full bg-slate-900/50 backdrop-blur-sm border border-slate-700">
     <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('en')" id="lang-en">EN</button>
     <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('ru')" id="lang-ru">RU</button>
 </div>
 
-<!-- Главный раздел -->
+<!-- Hero Section -->
 <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden pt-20 pb-10 main-bg">
     <div class="absolute inset-0 main-bg-overlay"></div>
     <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#020617] to-transparent"></div>
     <div class="container mx-auto px-6 relative z-10">
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-4" data-aos="fade-down">
-            <span class="gradient-text" data-i18n="hero.title">RClient для DDNet</span>
+            <span class="gradient-text" data-i18n="hero.title">RClient for DDNet</span>
         </h1>
         <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400 mb-8" data-aos="fade-down" data-aos-delay="200" data-i18n="hero.subtitle">
-            Ощутите новый уровень игры в DDRaceNetwork. Основан на Tater Client с лучшими функциями из Pulse и Entity клиентов.
+            Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.
         </p>
         <div class="flex justify-center items-center flex-wrap gap-4" data-aos="fade-up" data-aos-delay="400">
             <a href="#download" class="px-8 py-4 text-lg font-bold text-white bg-sky-500 rounded-full shadow-lg shadow-sky-500/30 hover:bg-sky-600 transform hover:-translate-y-1 transition-all duration-300">
-                <span data-i18n="hero.button">Скачать</span>
+                <span data-i18n="hero.button">Download</span>
             </a>
             <a href="https://discord.gg/wUFTVAGVGa" target="_blank" class="px-8 py-4 text-lg font-bold text-white bg-slate-800/80 border border-slate-700 rounded-full hover:bg-slate-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418Z"/></svg>
@@ -113,162 +114,157 @@
 </header>
 
 <main class="container mx-auto px-6">
-    <!-- Секция "Основа клиента" -->
+    <!-- About Section -->
     <section id="about" class="py-20">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Tater Client -->
             <div class="glass-card p-8" data-aos="fade-up">
-                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.tater.title">Основа: Tater Client</h3>
-                <p class="text-slate-400" data-i18n="about.tater.description">RClient построен на базе Tater Client, используя его оптимизированную производительность как фундамент.</p>
+                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.tater.title">Base: Tater Client</h3>
+                <p class="text-slate-400" data-i18n="about.tater.description">RClient is built on the Tater Client, using its optimized performance as a foundation.</p>
             </div>
             <!-- Pulse Client -->
             <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="150">
-                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.pulse.title">Вдохновение: Pulse Client</h3>
-                <p class="text-slate-400" data-i18n="about.pulse.description">Мы взяли и улучшили самые полезные функции из Pulse, такие как кастомизация лазеров и меню в табе.</p>
+                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.pulse.title">Inspired by: Pulse Client</h3>
+                <p class="text-slate-400" data-i18n="about.pulse.description">We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.</p>
             </div>
             <!-- Entity Client -->
             <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="300">
-                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.entity.title">Дополнение: Entity Client</h3>
-                <p class="text-slate-400" data-i18n="about.entity.description">Интегрировали полезные QoL-функции из Entity, чтобы сделать ваш игровой опыт еще комфортнее.</p>
+                <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.entity.title">Enhanced with: Entity Client</h3>
+                <p class="text-slate-400" data-i18n="about.entity.description">We integrated useful QoL features from Entity to make your gaming experience even more comfortable.</p>
             </div>
         </div>
     </section>
 
-    <!-- Раздел "Список функций" -->
+    <!-- Features Section -->
     <section id="feature-list" class="py-20">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="feature_list.title">Что внутри клиента?</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Функция 1 -->
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="feature_list.title">What's inside the client?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Feature 1 -->
             <div class="glass-card overflow-hidden" data-aos="fade-up">
-                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Скриншот+функции+1" alt="Скриншот функции 1" class="w-full h-auto object-cover">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+1" alt="Feature 1 Screenshot" class="w-full h-40 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="feature_list.feature1.title">Поиск/Копирование скинов</h3>
-                    <p class="text-slate-400" data-i18n="feature_list.feature1.description">Удобный поиск и копирование скинов прямо в игре. Найдите любой скин по нику игрока.</p>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature1.title">Find/Copy Skins</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature1.description">Conveniently search and copy skins directly in the game. Find any skin by player nickname.</p>
                 </div>
             </div>
-            <!-- Функция 2 -->
-            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="150">
-                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Скриншот+функции+2" alt="Скриншот функции 2" class="w-full h-auto object-cover">
+            <!-- Feature 2 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+2" alt="Feature 2 Screenshot" class="w-full h-40 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="feature_list.feature2.title">Улучшенные лазеры</h3>
-                    <p class="text-slate-400" data-i18n="feature_list.feature2.description">Настраивайте цвет и толщину лазеров для лучшей видимости, как в Pulse Client.</p>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature2.title">Enhanced Lasers</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature2.description">Customize laser color and thickness for better visibility, just like in Pulse Client.</p>
                 </div>
             </div>
-            <!-- Функция 3 -->
-            <div class="glass-card overflow-hidden" data-aos="fade-up">
-                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Скриншот+функции+3" alt="Скриншот функции 3" class="w-full h-auto object-cover">
+            <!-- Feature 3 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+3" alt="Feature 3 Screenshot" class="w-full h-40 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="feature_list.feature3.title">Автоматическая смена клана</h3>
-                    <p class="text-slate-400" data-i18n="feature_list.feature3.description">Клиент может автоматически изменять клан в зависимости от сервера, на котором вы играете.</p>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature3.title">Auto Clan Change</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature3.description">The client can automatically change your clan depending on the server you are playing on.</p>
                 </div>
             </div>
-            <!-- Функция 4 -->
-            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="150">
-                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Скриншот+функции+4" alt="Скриншот функции 4" class="w-full h-auto object-cover">
+            <!-- Feature 4 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+4" alt="Feature 4 Screenshot" class="w-full h-40 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="feature_list.feature4.title">Игровое меню в табе</h3>
-                    <p class="text-slate-400" data-i18n="feature_list.feature4.description">Взаимодействуйте с игроками прямо через таблицу лидеров, используя удобное контекстное меню.</p>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature4.title">Ingame Scoreboard Menu</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature4.description">Interact with players directly through the scoreboard using a convenient context menu.</p>
+                </div>
+            </div>
+            <!-- Feature 5 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+5" alt="Feature 5 Screenshot" class="w-full h-40 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature5.title">Custom HUD</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature5.description">Customize your Heads-Up Display to show the information you care about most.</p>
+                </div>
+            </div>
+            <!-- Feature 6 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+6" alt="Feature 6 Screenshot" class="w-full h-40 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature6.title">Ghost Mode</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature6.description">Practice maps by racing against your own best times with a visible ghost tee.</p>
+                </div>
+            </div>
+            <!-- Feature 7 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+7" alt="Feature 7 Screenshot" class="w-full h-40 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature7.title">Advanced Chat</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature7.description">Enjoy an improved chat with message history, tabs, and nickname highlighting.</p>
+                </div>
+            </div>
+            <!-- Feature 8 -->
+            <div class="glass-card overflow-hidden" data-aos="fade-up" data-aos-delay="700">
+                <img src="https://placehold.co/800x450/0f172a/38bdf8?text=Feature+8" alt="Feature 8 Screenshot" class="w-full h-40 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature8.title">Performance Boost</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="feature_list.feature8.description">Optimized code for smoother gameplay and higher frames-per-second.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Раздел "Как установить" -->
+    <!-- Installation Section -->
     <section id="install" class="py-20">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="installation.title">Простая установка</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="installation.title">Easy Installation</h2>
         <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <!-- Шаг 1 -->
-            <div class="flex flex-col items-center" data-aos="fade-up">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50" data-aos="fade-up">
                 <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">1</div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step1.title">Скачать клиент</h3>
-                <p class="text-slate-400" data-i18n="installation.step1.description">Загрузите последнюю версию для вашей операционной системы.</p>
+                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step1.title">Download Client</h3>
+                <p class="text-slate-400" data-i18n="installation.step1.description">Download the latest version for your operating system.</p>
             </div>
-            <!-- Шаг 2 -->
-            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="150">
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50" data-aos="fade-up" data-aos-delay="150">
                 <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">2</div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step2.title">Заменить файлы</h3>
-                <p class="text-slate-400" data-i18n="installation.step2.description">Замените исполняемый файл в папке с официальным клиентом DDNet.</p>
+                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step2.title">Replace Files</h3>
+                <p class="text-slate-400" data-i18n="installation.step2.description">Replace the executable file in your official DDNet client folder.</p>
             </div>
-            <!-- Шаг 3 -->
-            <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50" data-aos="fade-up" data-aos-delay="300">
                 <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">3</div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step3.title">Запустить игру</h3>
-                <p class="text-slate-400" data-i18n="installation.step3.description">Запускайте игру и наслаждайтесь новыми возможностями!</p>
+                <h3 class="text-xl font-bold mb-2" data-i18n="installation.step3.title">Launch Game</h3>
+                <p class="text-slate-400" data-i18n="installation.step3.description">Launch the game and enjoy the new features!</p>
             </div>
         </div>
     </section>
 
-    <!-- Раздел "Скриншоты" -->
-    <section id="screenshots" class="py-20">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text" data-aos="fade-up" data-i18n="screenshots.title">Галерея</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="group relative overflow-hidden rounded-2xl cursor-pointer" data-aos="fade-up" onclick="openModal('modal1')">
-                <img src="https://placehold.co/600x400/0f172a/ffffff?text=Интерфейс" alt="Скриншот 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                    <p class="text-white text-xl font-bold text-center">Основной интерфейс</p>
-                </div>
-            </div>
-            <div class="group relative overflow-hidden rounded-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="150" onclick="openModal('modal2')">
-                <img src="https://placehold.co/600x400/0f172a/ffffff?text=Настройки" alt="Скриншот 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                    <p class="text-white text-xl font-bold text-center">Гибкие настройки</p>
-                </div>
-            </div>
-            <div class="group relative overflow-hidden rounded-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="300" onclick="openModal('modal3')">
-                <img src="https://placehold.co/600x400/0f172a/ffffff?text=Геймплей" alt="Скриншот 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                    <p class="text-white text-xl font-bold text-center">Игровой процесс</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Модальные окна для скриншотов -->
-    <div id="modal1" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop-custom" onclick="closeModal('modal1')">
-        <div class="max-w-4xl max-h-full" onclick="event.stopPropagation()"><img src="https://placehold.co/1200x800/0f172a/ffffff?text=Интерфейс" class="rounded-lg shadow-2xl" alt="Скриншот 1"></div>
-    </div>
-    <div id="modal2" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop-custom" onclick="closeModal('modal2')">
-        <div class="max-w-4xl max-h-full" onclick="event.stopPropagation()"><img src="https://placehold.co/1200x800/0f172a/ffffff?text=Настройки" class="rounded-lg shadow-2xl" alt="Скриншот 2"></div>
-    </div>
-    <div id="modal3" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop-custom" onclick="closeModal('modal3')">
-        <div class="max-w-4xl max-h-full" onclick="event.stopPropagation()"><img src="https://placehold.co/1200x800/0f172a/ffffff?text=Геймплей" class="rounded-lg shadow-2xl" alt="Скриншот 3"></div>
-    </div>
-
-
-    <!-- Раздел "Скачать" -->
+    <!-- Download Section -->
     <section id="download" class="py-20">
-        <div class="glass-card p-8 md:p-16 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text" data-aos="fade-up" data-i18n="download.title">Скачать RClient</h2>
-            <p class="max-w-2xl mx-auto text-lg text-slate-400 mb-12" data-aos="fade-up" data-aos-delay="100" data-i18n="download.subtitle">Выберите вашу платформу и начните играть уже сегодня.</p>
+        <div class="glass-card p-8 md:p-16 text-center hover:border-sky-400/80">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text" data-aos="fade-up" data-i18n="download.title">Download RClient</h2>
+            <p class="max-w-2xl mx-auto text-lg text-slate-400 mb-12" data-aos="fade-up" data-aos-delay="100" data-i18n="download.subtitle">Choose your platform and start playing today.</p>
 
             <div id="loading-indicator" class="mb-4">
                 <div class="flex justify-center items-center gap-4">
                     <svg class="animate-spin h-8 w-8 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    <p class="text-lg" data-i18n="download.loading">Загрузка версий...</p>
+                    <p class="text-lg" data-i18n="download.loading">Loading versions...</p>
                 </div>
             </div>
 
             <div id="download-buttons" style="display: none;">
                 <div class="flex flex-wrap justify-center gap-6 mb-8" id="platform-buttons">
-                    <!-- Кнопки вставляются через JS -->
+                    <!-- Buttons are inserted via JS -->
                 </div>
                 <div data-aos="fade-up" data-aos-delay="200">
-                    <a href="https://github.com/1Voix1/RushieClient-ddnet-public/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">История версий на GitHub</a>
+                    <a href="https://github.com/1Voix1/RushieClient-ddnet-public/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
                 </div>
             </div>
             <div id="download-error" class="max-w-md mx-auto p-4 bg-red-900/50 border border-red-500 rounded-lg" style="display: none;">
-                <h5 class="font-bold" data-i18n="download.error.title">Ошибка загрузки</h5>
-                <p class="text-sm" data-i18n="download.error.message">Не удалось получить файлы. Пожалуйста, перейдите на GitHub для скачивания вручную.</p>
+                <h5 class="font-bold" data-i18n="download.error.title">Download Error</h5>
+                <p class="text-sm" data-i18n="download.error.message">Failed to fetch files. Please visit GitHub to download manually.</p>
             </div>
         </div>
     </section>
 </main>
 
-<!-- Подвал -->
+<!-- Footer -->
 <footer class="py-8">
     <div class="container mx-auto px-6 text-center text-slate-500">
         <p class="mb-2 font-poppins" data-i18n="footer.name">© 2024 RClient</p>
-        <p class="text-sm" data-i18n="footer.description">Создано для сообщества DDNet. Все права защищены.</p>
+        <p class="text-sm" data-i18n="footer.description">Created for the DDNet community. All rights reserved.</p>
     </div>
 </footer>
 
@@ -281,35 +277,102 @@
             easing: 'ease-in-out'
         });
 
-        // --- ЛОГИКА ДЛЯ МОДАЛЬНЫХ ОКОН ---
-        window.openModal = (modalId) => {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                document.body.classList.add('overflow-hidden');
-            }
-        }
-
-        window.closeModal = (modalId) => {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.classList.remove('overflow-hidden');
-            }
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                document.querySelectorAll('[id^="modal"]').forEach(modal => closeModal(modal.id));
-            }
-        });
-
-        // --- ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА И ЗАГРУЗКИ РЕЛИЗОВ ---
+        // --- LANGUAGE SWITCHING AND RELEASE LOADING LOGIC ---
         const translations = {
-            en: { 'hero.title': 'RClient for DDNet', 'hero.subtitle': 'Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.', 'hero.button': 'Download', 'about.tater.title': 'Base: Tater Client', 'about.tater.description': 'RClient is built on the Tater Client, using its optimized performance as a foundation.', 'about.pulse.title': 'Inspired by: Pulse Client', 'about.pulse.description': 'We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.', 'about.entity.title': 'Enhanced with: Entity Client', 'about.entity.description': 'We integrated useful QoL features from Entity to make your gaming experience even more comfortable.', 'feature_list.title': 'What\'s inside the client?', 'feature_list.feature1.title': 'Find/Copy Skins', 'feature_list.feature1.description': 'Conveniently search and copy skins directly in the game. Find any skin by player nickname.', 'feature_list.feature2.title': 'Enhanced Lasers', 'feature_list.feature2.description': 'Customize laser color and thickness for better visibility, just like in Pulse Client.', 'feature_list.feature3.title': 'Auto Clan Change', 'feature_list.feature3.description': 'The client can automatically change your clan depending on the server you are playing on.', 'feature_list.feature4.title': 'Ingame Scoreboard Menu', 'feature_list.feature4.description': 'Interact with players directly through the scoreboard using a convenient context menu.', 'installation.title': 'Easy Installation', 'installation.step1.title': 'Download Client', 'installation.step1.description': 'Download the latest version for your operating system.', 'installation.step2.title': 'Replace Files', 'installation.step2.description': 'Replace the executable file in your official DDNet client folder.', 'installation.step3.title': 'Launch Game', 'installation.step3.description': 'Launch the game and enjoy the new features!', 'download.title': 'Download RClient', 'download.subtitle': 'Choose your platform and start playing today.', 'download.loading': 'Loading versions...', 'download.error.title': 'Download Error', 'download.error.message': 'Failed to fetch files. Please visit GitHub to download manually.', 'download.windows': 'Windows', 'download.linux': 'Linux', 'download.macos': 'macOS', 'download.android': 'Android', 'footer.description': 'Created for the DDNet community. All rights reserved.', 'screenshots.title': 'Gallery', 'download.history': 'Version History on GitHub', 'footer.name': '© 2024 RClient' },
-            ru: { 'hero.title': 'RClient для DDNet', 'hero.subtitle': 'Ощутите новый уровень игры в DDRaceNetwork. Основан на Tater Client с лучшими функциями из Pulse и Entity клиентов.', 'hero.button': 'Скачать', 'about.tater.title': 'Основа: Tater Client', 'about.tater.description': 'RClient построен на базе Tater Client, используя его оптимизированную производительность как фундамент.', 'about.pulse.title': 'Вдохновение: Pulse Client', 'about.pulse.description': 'Мы взяли и улучшили самые полезные функции из Pulse, такие как кастомизация лазеров и меню в табе.', 'about.entity.title': 'Дополнение: Entity Client', 'about.entity.description': 'Интегрировали полезные QoL-функции из Entity, чтобы сделать ваш игровой опыт еще комфортнее.', 'feature_list.title': 'Что внутри клиента?', 'feature_list.feature1.title': 'Поиск/Копирование скинов', 'feature_list.feature1.description': 'Удобный поиск и копирование скинов прямо в игре. Найдите любой скин по нику игрока.', 'feature_list.feature2.title': 'Улучшенные лазеры', 'feature_list.feature2.description': 'Настраивайте цвет и толщину лазеров для лучшей видимости, как в Pulse Client.', 'feature_list.feature3.title': 'Автоматическая смена клана', 'feature_list.feature3.description': 'Клиент может автоматически изменять клан в зависимости от сервера, на котором вы играете.', 'feature_list.feature4.title': 'Игровое меню в табе', 'feature_list.feature4.description': 'Взаимодействуйте с игроками прямо через таблицу лидеров, используя удобное контекстное меню.', 'installation.title': 'Простая установка', 'installation.step1.title': 'Скачать клиент', 'installation.step1.description': 'Загрузите последнюю версию для вашей операционной системы.', 'installation.step2.title': 'Заменить файлы', 'installation.step2.description': 'Замените исполняемый файл в папке с официальным клиентом DDNet.', 'installation.step3.title': 'Запустить игру', 'installation.step3.description': 'Запускайте игру и наслаждайтесь новыми возможностями!', 'download.title': 'Скачать RClient', 'download.subtitle': 'Выберите вашу платформу и начните играть уже сегодня.', 'download.loading': 'Загрузка версий...', 'download.error.title': 'Ошибка загрузки', 'download.error.message': 'Не удалось получить файлы. Пожалуйста, перейдите на GitHub для скачивания вручную.', 'download.windows': 'Windows', 'download.linux': 'Linux', 'download.macos': 'macOS', 'download.android': 'Android', 'footer.description': 'Создано для сообщества DDNet. Все права защищены.', 'screenshots.title': 'Галерея', 'download.history': 'История версий на GitHub', 'footer.name': '© 2024 RClient' }
+            en: {
+                'hero.title': 'RClient for DDNet',
+                'hero.subtitle': 'Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.',
+                'hero.button': 'Download',
+                'about.tater.title': 'Base: Tater Client',
+                'about.tater.description': 'RClient is built on the Tater Client, using its optimized performance as a foundation.',
+                'about.pulse.title': 'Inspired by: Pulse Client',
+                'about.pulse.description': 'We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.',
+                'about.entity.title': 'Enhanced with: Entity Client',
+                'about.entity.description': 'We integrated useful QoL features from Entity to make your gaming experience even more comfortable.',
+                'feature_list.title': 'What\'s inside the client?',
+                'feature_list.feature1.title': 'Find/Copy Skins',
+                'feature_list.feature1.description': 'Conveniently search and copy skins directly in the game. Find any skin by player nickname.',
+                'feature_list.feature2.title': 'Enhanced Lasers',
+                'feature_list.feature2.description': 'Customize laser color and thickness for better visibility, just like in Pulse Client.',
+                'feature_list.feature3.title': 'Auto Clan Change',
+                'feature_list.feature3.description': 'The client can automatically change your clan depending on the server you are playing on.',
+                'feature_list.feature4.title': 'Ingame Scoreboard Menu',
+                'feature_list.feature4.description': 'Interact with players directly through the scoreboard using a convenient context menu.',
+                'feature_list.feature5.title': 'Custom HUD',
+                'feature_list.feature5.description': 'Customize your Heads-Up Display to show the information you care about most.',
+                'feature_list.feature6.title': 'Ghost Mode',
+                'feature_list.feature6.description': 'Practice maps by racing against your own best times with a visible ghost tee.',
+                'feature_list.feature7.title': 'Advanced Chat',
+                'feature_list.feature7.description': 'Enjoy an improved chat with message history, tabs, and nickname highlighting.',
+                'feature_list.feature8.title': 'Performance Boost',
+                'feature_list.feature8.description': 'Optimized code for smoother gameplay and higher frames-per-second.',
+                'installation.title': 'Easy Installation',
+                'installation.step1.title': 'Download Client',
+                'installation.step1.description': 'Download the latest version for your operating system.',
+                'installation.step2.title': 'Replace Files',
+                'installation.step2.description': 'Replace the executable file in your official DDNet client folder.',
+                'installation.step3.title': 'Launch Game',
+                'installation.step3.description': 'Launch the game and enjoy the new features!',
+                'download.title': 'Download RClient',
+                'download.subtitle': 'Choose your platform and start playing today.',
+                'download.loading': 'Loading versions...',
+                'download.error.title': 'Download Error',
+                'download.error.message': 'Failed to fetch files. Please visit GitHub to download manually.',
+                'download.windows': 'Windows',
+                'download.linux': 'Linux',
+                'download.macos': 'macOS',
+                'download.android': 'Android',
+                'download.history': 'Version History on GitHub',
+                'footer.name': '© 2024 RClient',
+                'footer.description': 'Created for the DDNet community. All rights reserved.'
+            },
+            ru: {
+                'hero.title': 'RClient для DDNet',
+                'hero.subtitle': 'Ощутите новый уровень игры в DDRaceNetwork. Основан на Tater Client с лучшими функциями из Pulse и Entity клиентов.',
+                'hero.button': 'Скачать',
+                'about.tater.title': 'Основа: Tater Client',
+                'about.tater.description': 'RClient построен на базе Tater Client, используя его оптимизированную производительность как фундамент.',
+                'about.pulse.title': 'Вдохновение: Pulse Client',
+                'about.pulse.description': 'Мы взяли и улучшили самые полезные функции из Pulse, такие как кастомизация лазеров и меню в табе.',
+                'about.entity.title': 'Дополнение: Entity Client',
+                'about.entity.description': 'Интегрировали полезные QoL-функции из Entity, чтобы сделать ваш игровой опыт еще комфортнее.',
+                'feature_list.title': 'Что внутри клиента?',
+                'feature_list.feature1.title': 'Поиск/Копирование скинов',
+                'feature_list.feature1.description': 'Удобный поиск и копирование скинов прямо в игре. Найдите любой скин по нику игрока.',
+                'feature_list.feature2.title': 'Улучшенные лазеры',
+                'feature_list.feature2.description': 'Настраивайте цвет и толщину лазеров для лучшей видимости, как в Pulse Client.',
+                'feature_list.feature3.title': 'Автоматическая смена клана',
+                'feature_list.feature3.description': 'Клиент может автоматически изменять клан в зависимости от сервера, на котором вы играете.',
+                'feature_list.feature4.title': 'Игровое меню в табе',
+                'feature_list.feature4.description': 'Взаимодействуйте с игроками прямо через таблицу лидеров, используя удобное контекстное меню.',
+                'feature_list.feature5.title': 'Кастомный HUD',
+                'feature_list.feature5.description': 'Настройте свой интерфейс для отображения самой важной для вас информации.',
+                'feature_list.feature6.title': 'Режим призрака',
+                'feature_list.feature6.description': 'Тренируйтесь на картах, соревнуясь со своим лучшим временем с видимым призраком.',
+                'feature_list.feature7.title': 'Продвинутый чат',
+                'feature_list.feature7.description': 'Наслаждайтесь улучшенным чатом с историей, вкладками и подсветкой ников.',
+                'feature_list.feature8.title': 'Прирост производительности',
+                'feature_list.feature8.description': 'Оптимизированный код для более плавного игрового процесса и высокого FPS.',
+                'installation.title': 'Простая установка',
+                'installation.step1.title': 'Скачать клиент',
+                'installation.step1.description': 'Загрузите последнюю версию для вашей операционной системы.',
+                'installation.step2.title': 'Заменить файлы',
+                'installation.step2.description': 'Замените исполняемый файл в папке с официальным клиентом DDNet.',
+                'installation.step3.title': 'Запустить игру',
+                'installation.step3.description': 'Запускайте игру и наслаждайтесь новыми возможностями!',
+                'download.title': 'Скачать RClient',
+                'download.subtitle': 'Выберите вашу платформу и начните играть уже сегодня.',
+                'download.loading': 'Загрузка версий...',
+                'download.error.title': 'Ошибка загрузки',
+                'download.error.message': 'Не удалось получить файлы. Пожалуйста, перейдите на GitHub для скачивания вручную.',
+                'download.windows': 'Windows',
+                'download.linux': 'Linux',
+                'download.macos': 'macOS',
+                'download.android': 'Android',
+                'download.history': 'История версий на GitHub',
+                'footer.name': '© 2024 RClient',
+                'footer.description': 'Создано для сообщества DDNet. Все права защищены.'
+            }
         };
 
         const loadReleases = async () => {
@@ -328,7 +391,7 @@
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                 const release = await response.json();
-                const currentLang = document.documentElement.lang || 'ru';
+                const currentLang = document.documentElement.lang || 'en';
                 const platformAssets = {};
 
                 for (const asset of release.assets) {
@@ -386,14 +449,13 @@
 
             localStorage.setItem('preferred-language', lang);
 
-            // Заменим вызов loadReleases на проверку и вызов
             if (typeof loadReleases === 'function') {
                 loadReleases();
             }
         };
         window.changeLanguage = changeLanguage;
 
-        const savedLanguage = localStorage.getItem('preferred-language') || 'ru';
+        const savedLanguage = localStorage.getItem('preferred-language') || 'en';
         changeLanguage(savedLanguage);
 
         const platformConfig = {
@@ -437,4 +499,3 @@
 </script>
 </body>
 </html>
-
