@@ -275,6 +275,7 @@
                 </div>
 
                 <div id="download-buttons" style="display: none;">
+                <div id="download-buttons" style="display: none;" class="mb-4">
                     <div class="flex flex-wrap justify-center gap-6 mb-8" id="platform-buttons">
                         <!-- Buttons are inserted via JS -->
                     </div>
@@ -285,6 +286,9 @@
                 <div id="download-error" class="max-w-md mx-auto p-4 bg-red-900/50 border border-red-500 rounded-lg" style="display: none;">
                     <h5 class="font-bold" data-i18n="download.error.title">Download Error</h5>
                     <p class="text-sm" data-i18n="download.error.message">Failed to fetch files. Please visit GitHub to download manually.</p>
+                </div>
+                <div id="version-history" style="display: none;" data-aos="fade-up" data-aos-delay="200">
+                    <a href="https://github.com/RushieClient/RushieClient-ddnet/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
                 </div>
             </div>
         </div>
@@ -410,11 +414,13 @@
             const downloadButtons = document.getElementById('download-buttons');
             const downloadError = document.getElementById('download-error');
             const platformButtons = document.getElementById('platform-buttons');
+            const versionHistory = document.getElementById('version-history');
 
             try {
                 loadingIndicator.style.display = 'flex';
                 downloadButtons.style.display = 'none';
                 downloadError.style.display = 'none';
+                versionHistory.style.display = 'none';
                 platformButtons.innerHTML = '';
 
                 const response = await fetch('https://api.github.com/repos/RushieClient/RushieClient-ddnet/releases/latest');
@@ -453,6 +459,7 @@
                 downloadError.style.display = 'block';
             } finally {
                 loadingIndicator.style.display = 'none';
+                versionHistory.style.display = 'block';
                 if (typeof AOS !== 'undefined') {
                     // Refresh AOS after content is dynamically loaded to recalculate positions
                     setTimeout(() => AOS.refresh(), 100);
