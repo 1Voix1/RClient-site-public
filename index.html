@@ -279,7 +279,7 @@
                         <!-- Buttons are inserted via JS -->
                     </div>
                     <div data-aos="fade-up" data-aos-delay="200">
-                        <a href="https://github.com/1Voix1/RushieClient-ddnet-public/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
+                        <a href="https://github.com/RushieClient/RushieClient-ddnet/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
                     </div>
                 </div>
                 <div id="download-error" class="max-w-md mx-auto p-4 bg-red-900/50 border border-red-500 rounded-lg" style="display: none;">
@@ -417,7 +417,7 @@
                 downloadError.style.display = 'none';
                 platformButtons.innerHTML = '';
 
-                const response = await fetch('https://api.github.com/repos/1Voix1/RushieClient-ddnet-public/releases/latest');
+                const response = await fetch('https://api.github.com/repos/RushieClient/RushieClient-ddnet/releases/latest');
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                 const release = await response.json();
