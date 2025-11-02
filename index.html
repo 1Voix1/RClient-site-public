@@ -79,12 +79,95 @@
             align-items: center;
             gap: 0.5rem;
         }
+        /* --- Узкая яркая бан-плашка с плавным текстом и мягко "дышащим" фоном --- */
+        :root {
+            --ban-height: 45px;
+        }
+
+        body {
+            padding-top: var(--ban-height);
+        }
+
+        /* Плашка */
+        #ban-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--ban-height);
+            background: linear-gradient(270deg, #ff0000, #ff6600, #ff0000);
+            background-size: 300% 300%;
+            animation: bg-shift 6s ease-in-out infinite alternate; /* двигается туда-обратно */
+            color: #fff;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(255, 80, 0, 0.5);
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Плавное движение градиента */
+        @keyframes bg-shift {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Контейнер для движущегося текста */
+        #ban-banner .marquee {
+            display: flex;
+            width: max-content;
+            animation: text-scroll 5s linear infinite;
+            white-space: nowrap;
+        }
+
+        /* Движение текста — плавное, без рывков */
+        @keyframes text-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-12.5%); }
+        }
+
+        /* Дублируем контент, чтобы не было разрыва */
+        #ban-banner .marquee span {
+            display: inline-block;
+            padding: 0 2rem;
+        }
+
+        /* Пауза при наведении */
+        #ban-banner:hover .marquee {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 640px) {
+            :root { --ban-height: 32px; }
+            #ban-banner { font-size: 13px; }
+        }
+
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
 
+<div id="ban-banner" role="alert" aria-live="polite">
+    <div class="marquee">
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+        <span data-i18n="ban.banner">⚠️ Warning: For using that client u can get BAN</span>
+    </div>
+</div>
+
+
+
 <!-- Language Switcher -->
-<div class="fixed top-4 right-4 z-50 flex items-center gap-1 p-1 rounded-full bg-slate-900/50 backdrop-blur-sm border border-slate-700">
+<div class="fixed top-16 right-4 z-50 flex items-center gap-1 p-1 rounded-full bg-slate-900/50 backdrop-blur-sm border border-slate-700">
     <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('en')" id="lang-en">EN</button>
     <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('ru')" id="lang-ru">RU</button>
 </div>
@@ -355,7 +438,8 @@
                 'download.macos': 'macOS',
                 'download.android': 'Android',
                 'download.history': 'Version History on GitHub',
-                'footer.description': 'Created for the DDNet community. All rights reserved.'
+                'footer.description': 'Created for the DDNet community. All rights reserved.',
+                'ban.banner': '️⚠️ Warning: For using that client u can get BAN'
             },
             ru: {
                 'hero.title': 'RClient для DDNet',
@@ -401,7 +485,8 @@
                 'download.macos': 'macOS',
                 'download.android': 'Android',
                 'download.history': 'История версий на GitHub',
-                'footer.description': 'Создано для сообщества DDNet. Все права защищены.'
+                'footer.description': 'Создано для сообщества DDNet. Все права защищены.',
+                'ban.banner': '️⚠️ Предупреждение: Вы можете получить БАН за этот клиент'
             }
         };
 
