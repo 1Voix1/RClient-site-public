@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Title and Description -->
     <title>Rushie - DDNet Client</title>
     <meta name="description" content="RClient — Improved DDRaceNetwork client with additional features, based on Tater Client and Pulse Client.">
     <meta name="keywords" content="RClient, Rushie Client, Rushie, DDnet, Client, DDrace, Tater Client, Pulse Client, mod, client, ddnet">
-
-    <!-- SEO and Indexing -->
     <link rel="canonical" href="https://rushie-client.ru/">
 
-    <!-- Open Graph for Social Media -->
     <meta property="og:title" content="Rushie - DDrace Client">
     <meta property="og:description" content="Improved DDRaceNetwork client with additional features, based on Tater Client and Pulse Client.">
     <meta property="og:type" content="website">
@@ -21,280 +17,892 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1250">
     <meta property="og:image:height" content="1250">
-
-    <!-- Multilang -->
     <link rel="alternate" hreflang="x-default" href="https://rushie-client.ru/" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
     <link rel="manifest" href="/static/manifest.json">
 
-    <!-- Scripts and Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom styles for improved design */
+        :root {
+            --bg: #050816;
+            --bg-alt: #0a1021;
+            --panel: #0f172a;
+            --panel-strong: #0b1220;
+            --stroke: rgba(94, 234, 212, 0.35);
+            --accent: #22d3ee;
+            --accent-2: #f97316;
+            --text: #e6edf7;
+            --muted: #9ca3af;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617; /* slate-950 */
-            color: #e2e8f0; /* slate-200 */
+            font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.08), transparent 26%), radial-gradient(circle at 80% 0%, rgba(249, 115, 22, 0.12), transparent 30%), radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.08), transparent 32%), var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
         }
-        h1, h2, h3, .font-poppins {
-            font-family: 'Poppins', sans-serif;
+
+        a {
+            color: inherit;
         }
+
+        .shell {
+            width: min(1200px, calc(100% - 2.5rem));
+            margin: 0 auto;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 30;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.4rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-lang {
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.45rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            color: var(--muted);
+            background: transparent;
+            transition: all 0.25s ease;
+        }
+
+        .btn-lang:hover {
+            color: var(--text);
+            border-color: var(--stroke);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 6.5rem 0 4rem;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.12), transparent 28%), radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.12), transparent 30%);
+        }
+
+        .hero::after {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 25%, rgba(255, 255, 255, 0.02) 50%);
+            mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.14);
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+            font-size: clamp(2.75rem, 4vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin: 1rem 0 0.75rem;
+        }
+
         .gradient-text {
-            background: linear-gradient(135deg, #7dd3fc, #0ea5e9); /* sky-300 to sky-500 */
+            background: linear-gradient(120deg, #67e8f9, #22d3ee, #f97316);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.7); /* slate-900 with opacity */
-            backdrop-filter: blur(12px);
-            border: 2px solid rgba(56, 189, 248, 0.1); /* sky-400 with opacity */
-            border-radius: 1.5rem; /* 24px */
-            transition: all 0.2s ease-in-out;
+
+        .hero-sub {
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 1.05rem;
         }
-        .glass-card:hover {
-            border-color: rgba(56, 189, 248, 0.8);
-            transform: translateY(-8px) scale(1.05); /* Увеличено до 1.1 и добавлено !important */
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin: 1.5rem 0;
         }
-        /* Custom background pattern */
-        .main-bg {
-            background-image: radial-gradient(circle at 1px 1px, rgba(56, 189, 248, 0.2) 1px, transparent 0);
-            background-size: 2rem 2rem;
+
+        .tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            padding: 0.55rem 0.9rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
-        .main-bg-overlay {
-            background: radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.1), transparent 70%);
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.75rem 0 1rem;
         }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, #22d3ee, #0ea5e9);
+            color: #02101d;
+            box-shadow: 0 18px 40px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 24px 48px rgba(14, 165, 233, 0.35);
+        }
+
+        .btn-ghost {
+            border-color: var(--card-border);
+            background: rgba(15, 23, 42, 0.65);
+            color: var(--text);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--stroke);
+            transform: translateY(-2px);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .meta-chip::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .preview-shell {
+            position: relative;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 22px;
+            overflow: visible;
+            box-shadow: none;
+        }
+
+        .preview-shell::before {
+            content: '';
+            position: absolute;
+            inset: 12% 8%;
+            background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.12), transparent 45%);
+            filter: blur(10px);
+            opacity: 0.6;
+        }
+
+        .orb {
+            position: absolute;
+            filter: blur(40px);
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .logo-float {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            place-items: center;
+            gap: 1rem;
+            padding: 2rem 1.4rem;
+        }
+
+        .logo-glow {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.2), rgba(249, 115, 22, 0.14), transparent 70%);
+            filter: blur(24px);
+            opacity: 0.8;
+        }
+
+        .logo-card {
+            position: relative;
+            width: min(300px, 70vw);
+            aspect-ratio: 1 / 1;
+            border-radius: 18px;
+            background: linear-gradient(150deg, rgba(34, 211, 238, 0.12), rgba(11, 18, 32, 0.85));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 28px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(34, 211, 238, 0.06);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            animation: floaty 5.5s ease-in-out infinite;
+        }
+
+        .logo-card::after {
+            content: '';
+            position: absolute;
+            inset: 6%;
+            border-radius: 14px;
+            border: 1px solid rgba(34, 211, 238, 0.18);
+            opacity: 0.7;
+        }
+
+        .logo-img {
+            width: 62%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 14px 26px rgba(14, 165, 233, 0.32));
+        }
+
+        .logo-caption {
+            color: var(--muted);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @keyframes floaty {
+            0% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(-2deg); }
+        }
+
+        .orb-cyan {
+            width: 220px;
+            height: 220px;
+            background: rgba(34, 211, 238, 0.3);
+            top: 12%;
+            left: 10%;
+        }
+
+        .orb-amber {
+            width: 180px;
+            height: 180px;
+            background: rgba(249, 115, 22, 0.25);
+            bottom: 8%;
+            right: 6%;
+        }
+
+        .preview-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(11, 18, 32, 0.9);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 0.75rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+        }
+
+        .preview-card img {
+            width: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .preview-card.main {
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        .preview-card .preview-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-card .label {
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .preview-card .muted {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .preview-card.floating {
+            position: absolute;
+            width: min(240px, 48vw);
+            background: rgba(12, 18, 34, 0.92);
+        }
+
+        .preview-card.top-left {
+            top: 12%;
+            left: -8%;
+            transform: rotate(-3deg);
+        }
+
+        .preview-card.bottom-right {
+            bottom: -6%;
+            right: -6%;
+            transform: rotate(4deg);
+        }
+
+        main {
+            padding: 1rem 0 4rem;
+        }
+
+        .section-block {
+            margin: 4.5rem 0;
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 2.25rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+            font-size: clamp(2rem, 3vw, 2.7rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-top: 0.75rem;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0.4rem auto 0;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-panel {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)) var(--panel);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.25);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .feature-panel:hover {
+            transform: translateY(-6px);
+            border-color: var(--stroke);
+        }
+
+        .panel-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-body {
+            color: var(--muted);
+        }
+
+        .panel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+            padding: 0.55rem 0.85rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .panel-link:hover {
+            border-color: var(--stroke);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--panel);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--stroke);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .feature-card-body {
+            padding: 1rem 1.1rem 1.2rem;
+        }
+
+        .feature-card-title {
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .feature-card-text {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .timeline-step {
+            background: var(--panel);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.4rem;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .timeline-step:hover {
+            transform: translateY(-6px);
+            border-color: var(--stroke);
+        }
+
+        .step-badge {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            margin: 0 auto 0.75rem;
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+        }
+
+        .download-card {
+            position: relative;
+            background: linear-gradient(160deg, rgba(34, 211, 238, 0.12), rgba(11, 18, 32, 0.95));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.2rem;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .download-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.2), transparent 35%), radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.2), transparent 35%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .download-card .section-head {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+        }
+
         #loading-indicator {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        #download-buttons {
+            position: relative;
+            z-index: 1;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1rem;
+        }
+
+        .platform-grid a {
+            display: block;
+            padding: 1.1rem;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+        }
+
+        .platform-grid a:hover {
+            border-color: var(--stroke);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
+        }
+
+        .platform-grid .icon {
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .alert {
+            position: relative;
+            z-index: 1;
+            background: rgba(127, 29, 29, 0.35);
+            border: 1px solid rgba(248, 113, 113, 0.4);
+            color: #fecdd3;
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .version-link {
+            position: relative;
+            z-index: 1;
+            margin-top: 1.25rem;
+        }
+
+        footer {
+            padding: 2.5rem 0 3rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        footer p:first-child {
+            color: var(--text);
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                right: 0.75rem;
+                top: 0.75rem;
+            }
+
+            .preview-card.top-left {
+                left: 0;
+                transform: rotate(-2deg);
+            }
+
+            .preview-card.bottom-right {
+                right: 0;
+                transform: rotate(2deg);
+            }
         }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
 
-<!-- Language Switcher -->
-<div class="fixed top-4 right-4 z-50 flex items-center gap-1 p-1 rounded-full bg-slate-900/50 backdrop-blur-sm border border-slate-700">
-    <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('en')" id="lang-en">EN</button>
-    <button class="btn-lang px-3 py-1 text-sm font-semibold rounded-full transition-all duration-300" onclick="changeLanguage('ru')" id="lang-ru">RU</button>
+<div class="lang-switcher">
+    <button class="btn-lang" onclick="changeLanguage('en')" id="lang-en">EN</button>
+    <button class="btn-lang" onclick="changeLanguage('ru')" id="lang-ru">RU</button>
 </div>
 
-<!-- Hero Section -->
-<header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden pt-20 pb-10 main-bg">
-    <div class="absolute inset-0 main-bg-overlay"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#020617] to-transparent"></div>
-    <div class="container mx-auto px-6 relative z-10">
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-4" data-aos="fade-down">
-            <span class="gradient-text" data-i18n="hero.title">RClient for DDNet</span>
-        </h1>
-        <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400 mb-8" data-aos="fade-down" data-aos-delay="200" data-i18n="hero.subtitle">
-            Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.
-        </p>
-        <div class="flex justify-center items-center flex-wrap gap-4" data-aos="zoom-in" data-aos-delay="400">
-            <a href="#download" class="px-8 py-4 text-lg font-bold text-white bg-sky-500 rounded-full shadow-lg shadow-sky-500/30 hover:bg-sky-600 transform hover:-translate-y-1 transition-all duration-300">
-                <span data-i18n="hero.button">Download</span>
-            </a>
-            <a href="https://discord.gg/wUFTVAGVGa" target="_blank" class="px-8 py-4 text-lg font-bold text-white bg-slate-800/80 border border-slate-700 rounded-full hover:bg-slate-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418Z"/></svg>
-                Discord
-            </a>
+<header class="hero">
+    <div class="shell">
+        <div class="hero-grid">
+            <div class="hero-copy" data-aos="fade-right">
+                <p class="eyebrow" data-i18n="hero.tagline">Fast, polished DDNet experience</p>
+                <h1 class="hero-title">
+                    <span class="gradient-text" data-i18n="hero.title">RClient for DDNet</span>
+                </h1>
+                <p class="hero-sub" data-i18n="hero.subtitle">
+                    Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.
+                </p>
+                <div class="hero-tags">
+                    <a class="tag" href="https://tclient.app/" target="_blank" rel="noreferrer" data-i18n="about.tater.title">Base: Tater Client</a>
+                    <a class="tag" href="https://pulse-client.xyz/" target="_blank" rel="noreferrer" data-i18n="about.pulse.title">Inspired by: Pulse Client</a>
+                    <a class="tag" href="https://github.com/FoxNet-DDNet/Entity-Client-DDNet" target="_blank" rel="noreferrer" data-i18n="about.entity.title">Enhanced with: Entity Client</a>
+                </div>
+                <div class="hero-actions">
+                    <a href="#download" class="btn btn-primary">
+                        <span data-i18n="hero.button">Download</span>
+                    </a>
+                    <a href="https://github.com/RushieClient/RushieClient-ddnet" target="_blank" class="btn btn-ghost">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 .5C5.649.5.5 5.66.5 12.038c0 5.102 3.292 9.424 7.863 10.956c.575.105.786-.251.786-.559c0-.275-.01-1.003-.016-1.97c-3.2.697-3.877-1.545-3.877-1.545c-.523-1.332-1.278-1.687-1.278-1.687c-1.044-.72.079-.706.079-.706c1.154.082 1.762 1.187 1.762 1.187c1.026 1.774 2.69 1.262 3.345.965c.104-.748.402-1.262.732-1.553c-2.554-.292-5.239-1.285-5.239-5.72c0-1.264.448-2.296 1.184-3.105c-.119-.292-.513-1.468.112-3.06c0 0 .964-.311 3.16 1.187c.917-.256 1.9-.384 2.878-.389c.978.005 1.961.133 2.879.39c2.194-1.499 3.156-1.187 3.156-1.187c.627 1.592.233 2.768.114 3.06c.737.809 1.182 1.841 1.182 3.105c0 4.446-2.69 5.425-5.253 5.711c.413.36.782 1.074.782 2.166c0 1.563-.014 2.82-.014 3.203c0 .31.208.669.793.556c4.567-1.534 7.855-5.856 7.855-10.956C23.5 5.66 18.352.5 12 .5Z" clip-rule="evenodd"/></svg>
+                        <span data-i18n="hero.github">GitHub</span>
+                    </a>
+                    <a href="https://discord.gg/wUFTVAGVGa" target="_blank" class="btn btn-ghost">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+                        Discord
+                    </a>
+                </div>
+                <div class="hero-meta">
+                    <span class="meta-chip" data-i18n="hero.meta1">Live release buttons</span>
+                    <span class="meta-chip" data-i18n="hero.meta2">Custom visuals &amp; QoL</span>
+                    <span class="meta-chip" data-i18n="hero.meta3">Community driven</span>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="fade-left">
+                <div class="preview-shell">
+                    <div class="orb orb-cyan"></div>
+                    <div class="orb orb-amber"></div>
+                    <div class="logo-float">
+                        <div class="logo-glow"></div>
+                        <div class="logo-card">
+                            <img src="static/images/logo.png" alt="RClient Logo" class="logo-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </header>
 
-<main class="container mx-auto px-6">
-    <!-- About Section -->
-    <section id="about" class="py-20">
-        <div class="flex flex-wrap items-stretch -mx-4">
-            <!-- Tater Client -->
-            <div class="about-section  flex w-full md:w-1/3 px-4 pb-8" data-aos="fade-right">
-                <div class="glass-card p-8">
-                    <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.tater.title">Base: Tater Client</h3>
-                    <p class="text-slate-400" data-i18n="about.tater.description">RClient is built on the Tater Client, using its functions and many others as a foundation.</p>
-                </div>
+<main>
+    <section id="about" class="section-block">
+        <div class="shell">
+            <div class="section-head" data-aos="fade-up">
+                <p class="eyebrow" data-i18n="about.heading">What powers RClient</p>
+                <h2 class="section-title" data-i18n="about.caption">Built on Tater, refined with Pulse and Entity.</h2>
             </div>
-            <!-- Pulse Client -->
-            <div class="about-section  flex w-full md:w-1/3 px-4 pb-8" data-aos="fade-up" data-aos-delay="150">
-                <div class="glass-card p-8">
-                    <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.pulse.title">Inspired by: Pulse Client</h3>
-                    <p class="text-slate-400" data-i18n="about.pulse.description">We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.</p>
-                </div>
+            <div class="card-grid">
+                <article class="feature-panel" data-aos="fade-right">
+                    <h3 class="panel-title" data-i18n="about.tater.title">Base: Tater Client</h3>
+                    <p class="panel-body" data-i18n="about.tater.description">RClient is built on the Tater Client, using its functions and many others as a foundation.</p>
+                    <a class="panel-link" href="https://tclient.app/" target="_blank" rel="noreferrer">
+                        <span data-i18n="about.tater.link">Visit Tater Client</span>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h7v7h-2V6.414l-9.293 9.293-1.414-1.414L17.586 5H14V3ZM5 5h5v2H6v11h11v-4h2v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
+                    </a>
+                </article>
+                <article class="feature-panel" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="panel-title" data-i18n="about.pulse.title">Inspired by: Pulse Client</h3>
+                    <p class="panel-body" data-i18n="about.pulse.description">We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.</p>
+                    <a class="panel-link" href="https://pulse-client.xyz/" target="_blank" rel="noreferrer">
+                        <span data-i18n="about.pulse.link">Visit Pulse Client</span>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h7v7h-2V6.414l-9.293 9.293-1.414-1.414L17.586 5H14V3ZM5 5h5v2H6v11h11v-4h2v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
+                    </a>
+                </article>
+                <article class="feature-panel" data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="panel-title" data-i18n="about.entity.title">Enhanced with: Entity Client</h3>
+                    <p class="panel-body" data-i18n="about.entity.description">We integrated useful QoL features from Entity to make your gaming experience even more comfortable.</p>
+                    <a class="panel-link" href="https://github.com/FoxNet-DDNet/Entity-Client-DDNet" target="_blank" rel="noreferrer">
+                        <span data-i18n="about.entity.link">Visit Entity Client</span>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h7v7h-2V6.414l-9.293 9.293-1.414-1.414L17.586 5H14V3ZM5 5h5v2H6v11h11v-4h2v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
+                    </a>
+                </article>
             </div>
-            <!-- Entity Client -->
-            <div class="about-section flex w-full md:w-1/3 px-4 pb-8" data-aos="fade-left" data-aos-delay="300">
-                <div class="glass-card p-8">
-                    <h3 class="font-poppins text-2xl font-bold mb-3" data-i18n="about.entity.title">Enhanced with: Entity Client</h3>
-                    <p class="text-slate-400" data-i18n="about.entity.description">We integrated useful QoL features from Entity to make your gaming experience even more comfortable.</p>
+        </div>
+    </section>
+
+    <section id="feature-list" class="section-block">
+        <div class="shell">
+            <div class="section-head" data-aos="fade-up">
+                <p class="eyebrow" data-i18n="feature_list.title">Features</p>
+                <h2 class="section-title" data-i18n="feature_list.caption">Player-first tools to keep you faster.</h2>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card" data-aos="zoom-in-up">
+                    <img src="static/images/Search_info.png" alt="Feature 1 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature1.title">Search info</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature1.description">Search and display player or map data from DDStats</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="80">
+                    <img src="static/images/Tracker.png" alt="Feature 2 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature2.title">Tracker</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature2.description">Show the positions of other players that you can add to the tracker.</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="160">
+                    <img src="static/images/chat_filter.png" alt="Feature 3 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature3.title">Censor list</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature3.description">Censor and replace unwanted words everywhere chat, nameplates, scoreboard and etc.</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="240">
+                    <img src="static/images/copy_player.png" alt="Feature 4 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature4.title">Copy player</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature4.description">Clone player or skins from your server or DDStats. Do not use it for bad purposes!</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="320">
+                    <img src="static/images/nameplate.png" alt="Feature 5 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature5.title">Nameplates</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature5.description">Customize the nameplates as you wish using a simple nameplate editor.</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="400">
+                    <img src="static/images/chat_bubbles.png" alt="Feature 6 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature6.title">Chat bubbles</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature6.description">See the messages of the players above their heads.</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="480">
+                    <img src="static/images/scoreboard.png" alt="Feature 7 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature7.title">Scoreboard (Pulse)</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature7.description">Upgraded scoreboard that allows you to perform quick actions.</p>
+                    </div>
+                </article>
+                <article class="feature-card" data-aos="zoom-in-up" data-aos-delay="560">
+                    <img src="static/images/and_more.png" alt="Feature 8 Screenshot">
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title" data-i18n="feature_list.feature8.title">And more</h3>
+                        <p class="feature-card-text" data-i18n="feature_list.feature8.description">There are many functions that don't fit here. Explore even more features in the game.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="install" class="section-block">
+        <div class="shell">
+            <div class="section-head" data-aos="fade-up">
+                <p class="eyebrow" data-i18n="installation.title">Installation</p>
+                <h2 class="section-title" data-i18n="install.caption">Three quick steps to jump in.</h2>
+                <p class="section-sub"></p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-step" data-aos="zoom-in">
+                    <div class="step-badge">1</div>
+                    <h3 class="panel-title" data-i18n="installation.step1.title">Download Client</h3>
+                    <p class="panel-body" data-i18n="installation.step1.description">Download the latest version for your operating system.</p>
+                </div>
+                <div class="timeline-step" data-aos="zoom-in" data-aos-delay="120">
+                    <div class="step-badge">2</div>
+                    <h3 class="panel-title" data-i18n="installation.step2.title">Extract Files</h3>
+                    <p class="panel-body" data-i18n="installation.step2.description">Extract the files from the downloaded archive to any folder.</p>
+                </div>
+                <div class="timeline-step" data-aos="zoom-in" data-aos-delay="240">
+                    <div class="step-badge">3</div>
+                    <h3 class="panel-title" data-i18n="installation.step3.title">Launch Game</h3>
+                    <p class="panel-body" data-i18n="installation.step3.description">Launch the game and enjoy the new features!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="feature-list" class="py-20">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="feature_list.title">Features</h2>
-        <div class="flex flex-wrap items-stretch -mx-4">
-            <!-- Feature 1 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/Search_info.png" alt="Feature 1 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature1.title">Search info</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature1.description">Search and display player or map data from DDStats</p>
-                    </div>
+    <section id="download" class="section-block">
+        <div class="shell">
+            <div class="download-card" data-aos="zoom-in-up">
+                <div class="section-head">
+                    <p class="eyebrow" data-i18n="download.title">Download RClient</p>
+                    <h2 class="section-title" data-i18n="download.subtitle">Choose your platform and start playing today.</h2>
                 </div>
-            </div>
-            <!-- Feature 2 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="100">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/Tracker.png" alt="Feature 2 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature2.title">Tracker</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature2.description">Show the positions of other players that you can add to the tracker.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 3 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="200">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/chat_filter.png" alt="Feature 3 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature3.title">Censor list</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature3.description">Censor and replace unwanted words everywhere chat, nameplates, scoreboard and etc.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 4 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="300">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/copy_player.png" alt="Feature 4 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature4.title">Copy player</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature4.description">Clone player or skins from your server or DDStats. Do not use it for bad purposes!</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 5 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="400">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/nameplate.png" alt="Feature 5 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature5.title">Nameplates</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature5.description">Customize the nameplates as you wish using a simple nameplate editor.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 6 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="500">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/chat_bubbles.png" alt="Feature 6 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature6.title">Chat bubbles</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature6.description">See the messages of the players above their heads.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 7 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="600">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/scoreboard.png" alt="Feature 7 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature7.title">Scoreboard (Pulse)</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature7.description">Upgraded scoreboard that allows you to perform quick actions.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Feature 8 -->
-            <div class="card-wrapper flex w-full md:w-1/2 lg:w-1/4 px-4 pb-8" data-aos="zoom-in-up" data-aos-delay="700">
-                <div class="glass-card overflow-hidden">
-                    <img src="static/images/and_more.png" alt="Feature 8 Screenshot" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" data-i18n="feature_list.feature8.title">And more</h3>
-                        <p class="text-slate-400 text-sm" data-i18n="feature_list.feature8.description">There are many functions that don't fit here. Explore even more features in the game.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Installation Section -->
-    <section id="install" class="py-20">
-        <div class="Install-text" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text" data-i18n="installation.title">Installation</h2>
-        </div>
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <!-- Step 1 -->
-            <div class="Install-step" data-aos="zoom-in">
-                <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50">
-                    <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">1</div>
-                    <h3 class="text-xl font-bold mb-2" data-i18n="installation.step1.title">Download Client</h3>
-                    <p class="text-slate-400" data-i18n="installation.step1.description">Download the latest version for your operating system.</p>
-                </div>
-            </div>
-            <!-- Step 2 -->
-            <div class="Install-step" data-aos="zoom-in" data-aos-delay="150">
-                <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50">
-                    <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">2</div>
-                    <h3 class="text-xl font-bold mb-2" data-i18n="installation.step2.title">Extract Files</h3>
-                    <p class="text-slate-400" data-i18n="installation.step2.description">Extract the files from the downloaded archive to any folder.</p>
-                </div>
-            </div>
-            <!-- Step 3 -->
-            <div class="Install-step" data-aos="zoom-in" data-aos-delay="300">
-                <div class="flex flex-col items-center p-4 rounded-2xl transition-all duration-300 hover:bg-slate-800/50">
-                    <div class="w-16 h-16 flex items-center justify-center text-2xl font-bold bg-slate-800 border-2 border-sky-500 rounded-full mb-4 text-sky-400">3</div>
-                    <h3 class="text-xl font-bold mb-2" data-i18n="installation.step3.title">Launch Game</h3>
-                    <p class="text-slate-400" data-i18n="installation.step3.description">Launch the game and enjoy the new features!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section id="download" class="py-20">
-        <div class="Download-section" data-aos="zoom-in-up">
-            <div class="glass-card p-8 md:p-16 text-center hover:border-sky-400/80">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text" data-aos="fade-up" data-i18n="download.title">Download RClient</h2>
-                <p class="max-w-2xl mx-auto text-lg text-slate-400 mb-12" data-aos="fade-up" data-aos-delay="100" data-i18n="download.subtitle">Choose your platform and start playing today.</p>
 
                 <div id="loading-indicator" class="mb-4">
-                    <div class="flex justify-center items-center gap-4">
-                        <svg class="animate-spin h-8 w-8 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        <p class="text-lg" data-i18n="download.loading">Loading versions...</p>
-                    </div>
+                    <svg class="animate-spin h-8 w-8 text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <p class="text-lg" data-i18n="download.loading">Loading versions...</p>
                 </div>
 
-                <div id="download-buttons" style="display: none;" class="mb-8">
-                    <div class="flex flex-wrap justify-center gap-6 mb-8" id="platform-buttons">
-                        <!-- Buttons are inserted via JS -->
+                <div id="download-buttons" style="display: none;" class="mb-4">
+                    <div class="platform-grid" id="platform-buttons">
                     </div>
                 </div>
-                <div id="download-error" class="max-w-md mx-auto p-4 bg-red-900/50 border border-red-500 rounded-lg" style="display: none;">
+                <div id="download-error" class="alert" style="display: none;">
                     <h5 class="font-bold" data-i18n="download.error.title">Download Error</h5>
                     <p class="text-sm" data-i18n="download.error.message">Failed to fetch files. Please visit GitHub to download manually.</p>
                 </div>
-                <div id="version-history" class="text-center" style="display: none;" data-aos="fade-up" data-aos-delay="200">
-                    <a href="https://github.com/RushieClient/RushieClient-ddnet/releases" class="text-slate-400 hover:text-sky-400 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
+                <div id="version-history" class="version-link" style="display: none;" data-aos="fade-up" data-aos-delay="200">
+                    <a href="https://github.com/RushieClient/RushieClient-ddnet/releases" class="hover:text-sky-300 transition-colors" target="_blank" data-i18n="download.history">Version History on GitHub</a>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
-<!-- Footer -->
-<footer class="py-8">
-    <div class="container mx-auto px-6 text-center text-slate-500">
-        <p class="mb-2 font-poppins">© 2024-2025 RClient</p>
+<footer>
+    <div class="shell">
+        <p>© 2024-2025 RClient</p>
         <p class="text-sm" data-i18n="footer.description">Created for the DDNet community. All rights reserved.</p>
     </div>
 </footer>
@@ -306,22 +914,33 @@
             duration: 800,
             once: true,
             easing: 'ease-in-out',
-            offset: 120 // Start animation a bit later
+            offset: 120
         });
 
-        // --- LANGUAGE SWITCHING AND RELEASE LOADING LOGIC ---
         const translations = {
             en: {
+                'hero.tagline': 'Fast, polished DDNet experience',
                 'hero.title': 'RClient for DDNet',
                 'hero.subtitle': 'Experience the next level of DDRaceNetwork. Based on Tater Client with the best features from Pulse and Entity clients.',
                 'hero.button': 'Download',
+                'hero.github': 'GitHub',
+                'hero.logo.caption': 'Sharp visuals. Stable performance.',
+                'hero.meta1': 'Live release buttons',
+                'hero.meta2': 'Custom visuals & QoL',
+                'hero.meta3': 'Community driven',
+                'about.heading': 'What powers RClient',
+                'about.caption': 'Built on Tater, refined with Pulse and Entity.',
                 'about.tater.title': 'Base: Tater Client',
                 'about.tater.description': 'RClient is built on the Tater Client, using its functions and many others as a foundation.',
+                'about.tater.link': 'Visit Tater Client',
                 'about.pulse.title': 'Inspired by: Pulse Client',
                 'about.pulse.description': 'We have taken and improved the most useful features from Pulse, such as laser customization and the scoreboard menu.',
+                'about.pulse.link': 'Visit Pulse Client',
                 'about.entity.title': 'Enhanced with: Entity Client',
                 'about.entity.description': 'We integrated useful QoL features from Entity to make your gaming experience even more comfortable.',
+                'about.entity.link': 'Visit Entity Client',
                 'feature_list.title': 'Features',
+                'feature_list.caption': 'Player-first tools to keep you faster.',
                 'feature_list.feature1.title': 'Search info',
                 'feature_list.feature1.description': 'Search and display player or map data from DDStats',
                 'feature_list.feature2.title': 'Tracker',
@@ -339,6 +958,7 @@
                 'feature_list.feature8.title': 'And more',
                 'feature_list.feature8.description': 'There are many functions that don\'t fit here. Explore even more features in the game.',
                 'installation.title': 'Installation',
+                'install.caption': 'Three quick steps to jump in.',
                 'installation.step1.title': 'Download Client',
                 'installation.step1.description': 'Download the latest version for your operating system.',
                 'installation.step2.title': 'Extract Files',
@@ -347,6 +967,7 @@
                 'installation.step3.description': 'Launch the game and enjoy the new features!',
                 'download.title': 'Download RClient',
                 'download.subtitle': 'Choose your platform and start playing today.',
+                'download.note': 'Links refresh automatically from GitHub releases.',
                 'download.loading': 'Loading versions...',
                 'download.error.title': 'Download Error',
                 'download.error.message': 'Failed to fetch files. Please visit GitHub to download manually.',
@@ -358,9 +979,17 @@
                 'footer.description': 'Created for the DDNet community. All rights reserved.'
             },
             ru: {
+                'hero.tagline': 'Быстрый, отполированный опыт DDNet',
                 'hero.title': 'RClient для DDNet',
                 'hero.subtitle': 'Ощутите новый уровень игры в DDRaceNetwork. Основан на Tater Client с лучшими функциями из Pulse и Entity клиентов.',
                 'hero.button': 'Скачать',
+                'hero.github': 'GitHub',
+                'hero.logo.caption': 'Яркий визуал. Стабильная производительность.',
+                'hero.meta1': 'Актуальные кнопки релизов',
+                'hero.meta2': 'Кастомный визуал и удобства',
+                'hero.meta3': 'Сила комьюнити',
+                'about.heading': 'Что лежит в основе RClient',
+                'about.caption': 'Основан на Tater, дополнен Pulse и Entity.',
                 'about.tater.title': 'Основа: Tater Client',
                 'about.tater.description': 'RClient построен на базе Tater Client, используя его оптимизированную производительность как фундамент.',
                 'about.pulse.title': 'Вдохновение: Pulse Client',
@@ -368,6 +997,7 @@
                 'about.entity.title': 'Дополнение: Entity Client',
                 'about.entity.description': 'Интегрировали полезные QoL-функции из Entity, чтобы сделать ваш игровой опыт еще комфортнее.',
                 'feature_list.title': 'Функции',
+                'feature_list.caption': 'Функции для игроков, чтобы быть быстрее.',
                 'feature_list.feature1.title': 'Поиск информации',
                 'feature_list.feature1.description': 'Поиск и отображение данных игрока или карты из DDStats',
                 'feature_list.feature2.title': 'Трекер',
@@ -385,6 +1015,7 @@
                 'feature_list.feature8.title': 'И больше',
                 'feature_list.feature8.description': 'Есть много функций, которые здесь не влезают. Исследуйте еще больше возможностей в игре.',
                 'installation.title': 'Установка',
+                'install.caption': 'Три простых шага, чтобы начать.',
                 'installation.step1.title': 'Скачать клиент',
                 'installation.step1.description': 'Загрузите последнюю версию для вашей операционной системы.',
                 'installation.step2.title': 'Извлеките файлы',
@@ -393,6 +1024,7 @@
                 'installation.step3.description': 'Запускайте игру и наслаждайтесь новыми возможностями!',
                 'download.title': 'Скачать RClient',
                 'download.subtitle': 'Выберите вашу платформу и начните играть уже сегодня.',
+                'download.note': 'Ссылки обновляются автоматически из релизов GitHub.',
                 'download.loading': 'Загрузка версий...',
                 'download.error.title': 'Ошибка загрузки',
                 'download.error.message': 'Не удалось получить файлы. Пожалуйста, перейдите на GitHub для скачивания вручную.',
@@ -428,10 +1060,8 @@
 
                 for (const asset of release.assets) {
                     const platform = detectPlatform(asset.name);
-                    if (platform) {
-                        if (!platformAssets[platform]) {
-                            platformAssets[platform] = asset;
-                        }
+                    if (platform && !platformAssets[platform]) {
+                        platformAssets[platform] = asset;
                     }
                 }
 
@@ -439,7 +1069,7 @@
                 const sortedPlatforms = ['windows', 'linux', 'macos', 'android'];
 
                 sortedPlatforms.forEach(platform => {
-                    if(platformAssets[platform]) {
+                    if (platformAssets[platform]) {
                         buttonsHtml += createPlatformButton(platform, platformAssets[platform], currentLang);
                     }
                 });
@@ -457,11 +1087,10 @@
                 loadingIndicator.style.display = 'none';
                 versionHistory.style.display = 'block';
                 if (typeof AOS !== 'undefined') {
-                    // Refresh AOS after content is dynamically loaded to recalculate positions
                     setTimeout(() => AOS.refresh(), 100);
                 }
             }
-        }
+        };
 
         const changeLanguage = (lang) => {
             document.documentElement.lang = lang;
@@ -495,10 +1124,10 @@
         changeLanguage(savedLanguage);
 
         const platformConfig = {
-            'windows': { icon: '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 10.873V20L8.479 18.537l.001-7.664H20Zm-13.12 0l-.001 7.461L0 17.461v-6.588h6.88ZM20 9.273H8.48l-.001-7.81L20 0v9.273ZM6.879 1.666l.001 7.607H0V2.539l6.879-.873Z" /></svg>', name: 'download.windows', keywords: ['windows'] },
-            'linux': { icon: '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19.7 17.6c-.1-.2-.2-.4-.2-.6c0-.4-.2-.7-.5-1c-.1-.1-.3-.2-.4-.2c.6-1.8-.3-3.6-1.3-4.9c-.8-1.2-2-2.1-1.9-3.7c0-1.9.2-5.4-3.3-5.1c-3.6.2-2.6 3.9-2.7 5.2c0 1.1-.5 2.2-1.3 3.1c-.2.2-.4.5-.5.7c-1 1.2-1.5 2.8-1.5 4.3c-.2.2-.4.4-.5.6c-.1.1-.2.2-.2.3c-.1.1-.3.2-.5.3c-.4.1-.7.3-.9.7c-.1.3-.2.7-.1 1.1c.1.2.1.4 0 .7c-.2.4-.2.9 0 1.4c.3.4.8.5 1.5.6c.5 0 1.1.2 1.6.4c.5.3 1.1.5 1.7.5c.3 0 .7-.1 1-.2c.3-.2.5-.4.6-.7c.4 0 1-.2 1.7-.2c.6 0 1.2.2 2 .1c0 .1 0 .2.1.3c.2.5.7.9 1.3 1h.2c.8-.1 1.6-.5 2.1-1.1c.4-.4.9-.7 1.4-.9c.6-.3 1-.5 1.1-1c.1-.7-.1-1.1-.5-1.7zM12.8 4.8c.6.1 1.1.6 1 1.2c0 .3-.1.6-.3.9h-.1c-.2-.1-.3-.1-.4-.2c.1-.1.1-.3.2-.5c0-.4-.2-.7-.4-.7c-.3 0-.5.3-.5.7v.1c-.1-.1-.3-.1-.4-.2V6c-.1-.5.3-1.1.9-1.2zm-.3 2c.1.1.3.2.4.2c.1 0 .3.1.4.2c.2.1.4.2.4.5s-.3.6-.9.8c-.2.1-.3.1-.4.2c-.3.2-.6.3-1 .3c-.3 0-.6-.2-.8-.4c-.1-.1-.2-.2-.4-.3c-.1-.1-.3-.3-.4-.6c0-.1.1-.2.2-.3c.3-.2.4-.3.5-.4l.1-.1c.2-.3.6-.5 1-.5c.3.1.6.2.9.4zM10.4 5c.4 0 .7.4.8 1.1v.2c-.1 0-.3.1-.4.2v-.2c0-.3-.2-.6-.4-.5c-.2 0-.3.3-.3.6c0 .2.1.3.2.4c0 0-.1.1-.2.1c-.2-.2-.4-.5-.4-.8c0-.6.3-1.1.7-1.1zm-1 16.1c-.7.3-1.6.2-2.2-.2c-.6-.3-1.1-.4-1.8-.4c-.5-.1-1-.1-1.1-.3c-.1-.2-.1-.5.1-1c.1-.3.1-.6 0-.9c-.1-.3-.1-.5 0-.8c.1-.3.3-.4.6-.5c.3-.1.5-.2.7-.4c.1-.1.2-.2.3-.4c.3-.4.5-.6.8-.6c.6.1 1.1 1 1.5 1.9c.2.3.4.7.7 1c.4.5.9 1.2.9 1.6c0 .5-.2.8-.5 1zm4.9-2.2c0 .1 0 .1-.1.2c-1.2.9-2.8 1-4.1.3l-.6-.9c.9-.1.7-1.3-1.2-2.5c-2-1.3-.6-3.7.1-4.8c.1-.1.1 0-.3.8c-.3.6-.9 2.1-.1 3.2c0-.8.2-1.6.5-2.4c.7-1.3 1.2-2.8 1.5-4.3c.1.1.1.1.2.1c.1.1.2.2.3.2c.2.3.6.4.9.4h.1c.4 0 .8-.1 1.1-.4c.1-.1.2-.2.4-.2c.3-.1.6-.3.9-.6c.4 1.3.8 2.5 1.4 3.6c.4.8.7 1.6.9 2.5c.3 0 .7.1 1 .3c.8.4 1.1.7 1 1.2H18c0-.3-.2-.6-.9-.9c-.7-.3-1.3-.3-1.5.4c-.1 0-.2.1-.3.1c-.8.4-.8 1.5-.9 2.6c.1.4 0 .7-.1 1.1zm4.6.6c-.6.2-1.1.6-1.5 1.1c-.4.6-1.1 1-1.9.9c-.4 0-.8-.3-.9-.7c-.1-.6-.1-1.2.2-1.8c.1-.4.2-.7.3-1.1c.1-1.2.1-1.9.6-2.2c0 .5.3.8.7 1c.5 0 1-.1 1.4-.5h.2c.3 0 .5 0 .7.2c.2.2.3.5.3.7c0 .3.2.6.3.9c.5.5.5.8.5.9c-.1.2-.5.4-.9.6zm-9-12c-.1 0-.1 0-.1.1c0 0 0 .1.1.1s.1.1.1.1c.3.4.8.6 1.4.7c.5-.1 1-.2 1.5-.6l.6-.3c.1 0 .1-.1.1-.1c0-.1 0-.1-.1-.1c-.2.1-.5.2-.7.3c-.4.3-.9.5-1.4.5c-.5 0-.9-.3-1.2-.6c-.1 0-.2-.1-.3-.1z" /></svg>', name: 'download.linux', keywords: ['ubuntu', 'linux'] },
-            'macos': { icon: '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M10.102 7.78a4 4 0 0 0-1.185-.161c-1.918 0-4.167 1.695-4.167 5.359c0 3.36 2.358 7.21 3.801 7.822c.328.14.731.227 1.084.193c.707-.07 1.348-.421 2.023-.622c.228-.038.5-.074.719-.075c.24-.002.51.06.774.12c.715.164 1.505.65 2.255.577c.267-.026.633-.187.746-.239l.07-.03c.85-.343 1.988-1.826 2.759-3.703c.162-.396-.052-.833-.404-1.077c-.999-.694-1.663-1.934-1.663-3.195c0-.969.313-1.854.907-2.523l.02-.023a8 8 0 0 1 .45-.5c.255-.248.326-.645.082-.904c-.808-.854-1.832-1.277-2.764-1.277a3.6 3.6 0 0 0-1.106.156c-.138.033-.778.192-1.222.355c-.257.071-.635.167-.81.21a.7.7 0 0 1-.192.023c-.735-.024-1.47-.303-2.177-.487Z" clip-rule="evenodd"/><path fill="#000000" d="M13.86 5.178c-.733.878-1.975 1.047-1.975 1.047s-.05-1.256.684-2.135s1.976-1.046 1.976-1.046s.05 1.256-.684 2.134Z" /></svg>', name: 'download.macos', keywords: ['macos', 'mac'] },
-            'android': { icon: '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.735 1.828L13.6.254a.172.172 0 0 0-.3-.164l-.874 1.59a5.987 5.987 0 0 0-2.428-.508c-.869 0-1.69.181-2.424.506L6.698.09a.171.171 0 0 0-.232-.069a.169.169 0 0 0-.069.232l.866 1.572c-1.7.874-2.85 2.537-2.849 4.447l11.166-.001c0-1.91-1.146-3.57-2.845-4.444Zm-5.278 2.43a.467.467 0 1 1 .001-.934a.467.467 0 0 1 0 .935ZM15.542 6.7l.002 8.012c0 .481-.262.897-.648 1.127a1.31 1.31 0 0 1-.675.19l-.904.001v2.734a1.237 1.237 0 0 1-1.489 1.21a1.238 1.238 0 0 1-.99-1.209V16.03H9.163v2.735A1.237 1.237 0 0 1 7.925 20a1.239 1.239 0 0 1-1.238-1.235V16.03h-.901c-.521 0-.967-.3-1.182-.736a1.298 1.298 0 0 1-.141-.581l-.002-8.01L15.542 6.7ZM2.74 6.47c.684 0 1.24.553 1.24 1.234v5.17a1.238 1.238 0 0 1-1.922 1.03a1.231 1.231 0 0 1-.557-1.03L1.5 7.703c0-.68.555-1.234 1.24-1.234Zm14.52-.001c.684 0 1.24.552 1.24 1.234v5.169c0 .683-.555 1.235-1.239 1.235c-.685 0-1.24-.552-1.24-1.235v-5.17c0-.682.554-1.235 1.238-1.234Zm-4.72-3.144a.467.467 0 1 1 0 .933a.467.467 0 1 1 0-.933Z" /></svg>', name: 'download.android', keywords: ['android'] }
+            windows: { icon: '<svg class="w-8 h-8 icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 10.873V20L8.479 18.537l.001-7.664H20Zm-13.12 0l-.001 7.461L0 17.461v-6.588h6.88ZM20 9.273H8.48l-.001-7.81L20 0v9.273ZM6.879 1.666l.001 7.607H0V2.539l6.879-.873Z" /></svg>', name: 'download.windows', keywords: ['windows'] },
+            linux: { icon: '<svg class="w-8 h-8 icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19.7 17.6c-.1-.2-.2-.4-.2-.6c0-.4-.2-.7-.5-1c-.1-.1-.3-.2-.4-.2c.6-1.8-.3-3.6-1.3-4.9c-.8-1.2-2-2.1-1.9-3.7c0-1.9.2-5.4-3.3-5.1c-3.6.2-2.6 3.9-2.7 5.2c0 1.1-.5 2.2-1.3 3.1c-.2.2-.4.5-.5.7c-1 1.2-1.5 2.8-1.5 4.3c-.2.2-.4.4-.5.6c-.1.1-.2.2-.2.3c-.1.1-.3.2-.5.3c-.4.1-.7.3-.9.7c-.1.3-.2.7-.1 1.1c.1.2.1.4 0 .7c-.2.4-.2.9 0 1.4c.3.4.8.5 1.5.6c.5 0 1.1.2 1.6.4c.5.3 1.1.5 1.7.5c.3 0 .7-.1 1-.2c.3-.2.5-.4.6-.7c.4 0 1-.2 1.7-.2c.6 0 1.2.2 2 .1c0 .1 0 .2.1.3c.2.5.7.9 1.3 1h.2c.8-.1 1.6-.5 2.1-1.1c.4-.4.9-.7 1.4-.9c.6-.3 1-.5 1.1-1c.1-.7-.1-1.1-.5-1.7zM12.8 4.8c.6.1 1.1.6 1 1.2c0 .3-.1.6-.3.9h-.1c-.2-.1-.3-.1-.4-.2c.1-.1.1-.3.2-.5c0-.4-.2-.7-.4-.7c-.3 0-.5.3-.5.7v.1c-.1-.1-.3-.1-.4-.2V6c-.1-.5.3-1.1.9-1.2zm-.3 2c.1.1.3.2.4.2c.1 0 .3.1.4.2c.2.1.4.2.4.5s-.3.6-.9.8c-.2.1-.3.1-.4.2c-.3.2-.6.3-1 .3c-.3 0-.6-.2-.8-.4c-.1-.1-.2-.2-.4-.3c-.1-.1-.3-.3-.4-.6c0-.1.1-.2.2-.3c.3-.2.4-.3.5-.4l.1-.1c.2-.3.6-.5 1-.5c.3.1.6.2.9.4zM10.4 5c.4 0 .7.4.8 1.1v.2c-.1 0-.3.1-.4.2v-.2c0-.3-.2-.6-.4-.5c-.2 0-.3.3-.3.6c0 .2.1.3.2.4c0 0-.1.1-.2.1c-.2-.2-.4-.5-.4-.8c0-.6.3-1.1.7-1.1zm-1 16.1c-.7.3-1.6.2-2.2-.2c-.6-.3-1.1-.4-1.8-.4c-.5-.1-1-.1-1.1-.3c-.1-.2-.1-.5.1-1c.1-.3.1-.6 0-.9c-.1-.3-.1-.5 0-.8c.1-.3.3-.4.6-.5c.3-.1.5-.2.7-.4c.1-.1.2-.2.3-.4c.3-.4.5-.6.8-.6c.6.1 1.1 1 1.5 1.9c.2.3.4.7.7 1c.4.5.9 1.2.9 1.6c0 .5-.2.8-.5 1zm4.9-2.2c0 .1 0 .1-.1.2c-1.2.9-2.8 1-4.1.3l-.6-.9c.9-.1.7-1.3-1.2-2.5c-2-1.3-.6-3.7.1-4.8c.1-.1.1 0-.3.8c-.3.6-.9 2.1-.1 3.2c0-.8.2-1.6.5-2.4c.7-1.3 1.2-2.8 1.5-4.3c.1.1.1.1.2.1c.1.1.2.2.3.2c.2.3.6.4.9.4h.1c.4 0 .8-.1 1.1-.4c.1-.1.2-.2.4-.2c.3-.1.6-.3.9-.6c.4 1.3.8 2.5 1.4 3.6c.4.8.7 1.6.9 2.5c.3 0 .7.1 1 .3c.8.4 1.1.7 1 1.2H18c0-.3-.2-.6-.9-.9c-.7-.3-1.3-.3-1.5.4c-.1 0-.2.1-.3.1c-.8.4-.8 1.5-.9 2.6c.1.4 0 .7-.1 1.1zm4.6.6c-.6.2-1.1.6-1.5 1.1c-.4.6-1.1 1-1.9.9c-.4 0-.8-.3-.9-.7c-.1-.6-.1-1.2.2-1.8c.1-.4.2-.7.3-1.1c.1-1.2.1-1.9.6-2.2c0 .5.3.8.7 1c.5 0 1-.1 1.4-.5h.2c.3 0 .5 0 .7.2c.2.2.3.5.3.7c0 .3.2.6.3.9c.5.5.5.8.5.9c-.1.2-.5.4-.9.6zm-9-12c-.1 0-.1 0-.1.1c0 0 0 .1.1.1s.1.1.1.1c.3.4.8.6 1.4.7c.5-.1 1-.2 1.5-.6l.6-.3c.1 0 .1-.1.1-.1c0-.1 0-.1-.1-.1c-.2.1-.5.2-.7.3c-.4.3-.9.5-1.4.5c-.5 0-.9-.3-1.2-.6c-.1 0-.2-.1-.3-.1z" /></svg>', name: 'download.linux', keywords: ['ubuntu', 'linux'] },
+            macos: { icon: '<svg class="w-8 h-8 icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10.102 7.78a4 4 0 0 0-1.185-.161c-1.918 0-4.167 1.695-4.167 5.359c0 3.36 2.358 7.21 3.801 7.822c.328.14.731.227 1.084.193c.707-.07 1.348-.421 2.023-.622c.228-.038.5-.074.719-.075c.24-.002.51.06.774.12c.715.164 1.505.65 2.255.577c.267-.026.633-.187.746-.239l.07-.03c.85-.343 1.988-1.826 2.759-3.703c.162-.396-.052-.833-.404-1.077c-.999-.694-1.663-1.934-1.663-3.195c0-.969.313-1.854.907-2.523l.02-.023a8 8 0 0 1 .45-.5c.255-.248.326-.645.082-.904c-.808-.854-1.832-1.277-2.764-1.277a3.6 3.6 0 0 0-1.106.156c-.138.033-.778.192-1.222.355c-.257.071-.635.167-.81.21a.7.7 0 0 1-.192.023c-.735-.024-1.47-.303-2.177-.487Z" clip-rule="evenodd"/><path fill="currentColor" d="M13.86 5.178c-.733.878-1.975 1.047-1.975 1.047s-.05-1.256.684-2.135s1.976-1.046 1.976-1.046s.05 1.256-.684 2.134Z" /></svg>', name: 'download.macos', keywords: ['macos', 'mac'] },
+            android: { icon: '<svg class="w-8 h-8 icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12.735 1.828L13.6.254a.172.172 0 0 0-.3-.164l-.874 1.59a5.987 5.987 0 0 0-2.428-.508c-.869 0-1.69.181-2.424.506L6.698.09a.171.171 0 0 0-.232-.069a.169.169 0 0 0-.069.232l.866 1.572c-1.7.874-2.85 2.537-2.849 4.447l11.166-.001c0-1.91-1.146-3.57-2.845-4.444Zm-5.278 2.43a.467.467 0 1 1 .001-.934a.467.467 0 0 1 0 .935ZM15.542 6.7l.002 8.012c0 .481-.262.897-.648 1.127a1.31 1.31 0 0 1-.675.19l-.904.001v2.734a1.237 1.237 0 0 1-1.489 1.21a1.238 1.238 0 0 1-.99-1.209V16.03H9.163v2.735A1.237 1.237 0 0 1 7.925 20a1.239 1.239 0 0 1-1.238-1.235V16.03h-.901c-.521 0-.967-.3-1.182-.736a1.298 1.298 0 0 1-.141-.581l-.002-8.01L15.542 6.7ZM2.74 6.47c.684 0 1.24.553 1.24 1.234v5.17a1.238 1.238 0 0 1-1.922 1.03a1.231 1.231 0 0 1-.557-1.03L1.5 7.703c0-.68.555-1.234 1.24-1.234Zm14.52-.001c.684 0 1.24.552 1.24 1.234v5.169c0 .683-.555 1.235-1.239 1.235c-.685 0-1.24-.552-1.24-1.235v-5.17c0-.682.554-1.235 1.238-1.234Zm-4.72-3.144a.467.467 0 1 1 0 .933a.467.467 0 1 1 0-.933Z" /></svg>', name: 'download.android', keywords: ['android'] }
         };
 
         const formatFileSize = (bytes) => {
@@ -507,7 +1136,7 @@
             const sizes = ['Bytes', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
+        };
 
         const detectPlatform = (filename) => {
             const lowerName = filename.toLowerCase();
@@ -517,21 +1146,25 @@
                 }
             }
             return null;
-        }
+        };
 
         const createPlatformButton = (platform, asset, currentLang) => {
             const config = platformConfig[platform];
             const platformName = translations[currentLang][config.name] || platform.charAt(0).toUpperCase() + platform.slice(1);
-            // Dynamic buttons get their AOS attribute here
             return `
-                <div class="Download-button" data-aos="zoom-in">
-                    <a href="${asset.browser_download_url}" class="group flex flex-col items-center justify-center p-6 w-48 h-40 bg-slate-800/50 rounded-2xl text-center transition-all duration-300 border border-transparent hover:border-sky-500 hover:-translate-y-2" download>
-                        <div class="text-sky-400 text-4xl mb-3 group-hover:text-sky-300 transition-colors">${config.icon}</div>
-                        <div class="text-xl font-bold">${platformName}</div>
-                        <div class="text-sm text-slate-400">${formatFileSize(asset.size)}</div>
-                    </a>
-                </div>`;
-        }
+                <a href="${asset.browser_download_url}" class="group" download data-aos="zoom-in">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            ${config.icon}
+                            <div>
+                                <div class="text-lg font-semibold">${platformName}</div>
+                                <div class="text-sm text-slate-300">${formatFileSize(asset.size)}</div>
+                            </div>
+                        </div>
+                        <div class="text-sm text-sky-200 group-hover:text-white transition-colors">Get</div>
+                    </div>
+                </a>`;
+        };
 
         loadReleases();
     });
